@@ -131,7 +131,12 @@ public class Parser {
     }
 
     private boolean S() {
-        return E() && term(Token.SEMI);
+        if (E()) {
+            if (term(Token.SEMI)) {
+                return this.next == this.tokens.size(); // Ensure end of input after semicolon
+            }
+        }
+        return false;
     }
 
     private boolean E() {
